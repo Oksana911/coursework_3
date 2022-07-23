@@ -1,5 +1,7 @@
 from marshmallow import Schema, fields
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy.orm import relationship
+
 from project.setup.db import models
 
 
@@ -21,18 +23,19 @@ class Movie(models.Base):
     trailer = Column(String(255))
     year = Column(Integer)
     rating = Column(Float)
-    genre_id = Column(Integer, ForeignKey("genres.id"))
-    director_id = Column(Integer, ForeignKey("directors.id"))
-
+    genre_id = Column(Integer, ForeignKey(f'{Genre.__tablename__}.id'))
+    genre = relationship('Genre')
+    director_id = Column(Integer, ForeignKey(f'{Director.__tablename__}.id'))
+    director = relationship('Director')
 
 class User(models.Base):
     __tablename__ = 'users'
 
     email = Column(String, unique=True, nullable=False)
-    password = Column(String)
-    name = Column(String)
-    surname = Column(String)
-    favorite_genre = Column(String)  # TODO связать с таблицей жанров?
+    password_hash = Column(String(255))
+    name = Column(String(100))
+    surname = Column(String(100))
+    favorite_genre = Column(Integer, ForeignKey("genres.id"))
 
 
 ### Схемы для сериализации ###
@@ -59,7 +62,17 @@ class MovieSchema(Schema):
 class UserSchema(Schema):
     id = fields.Int()
     email = fields.Str()
-    password = fields.Str()
+    password_hash = fields.Str()
     name = fields.Str()
     surname = fields.Str()
-    favorite_genre = fields.Str()
+    favorite_genre = fields.Int()
+
+
+class UserCreatedSchema(Schema):
+    email = fields.Str(required=True)
+    password_hash = fields.Str(required=True)
+
+
+class AuthRegisterRequest(Schema):   #TODO добавить проверку почты и пароля через @validator
+    email = fields.Str(required=True)
+    password_hash = fields.Str(required=True)

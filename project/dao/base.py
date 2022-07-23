@@ -19,6 +19,7 @@ class BaseDAO(Generic[T]):
     def _items_per_page(self) -> int:
         return current_app.config['ITEMS_PER_PAGE']
 
+
     def get_by_id(self, pk: int) -> Optional[T]:
         return self._db_session.query(self.__model__).get(pk)
 
