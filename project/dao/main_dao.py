@@ -2,7 +2,7 @@ from typing import Optional, List
 
 from werkzeug.exceptions import NotFound
 from project.dao.base import BaseDAO, T
-from project.models import Genre, Director, Movie, User
+from project.models import Genre, Director, Movie
 
 
 class GenresDAO(BaseDAO[Genre]):
@@ -28,5 +28,4 @@ class MoviesDAO(BaseDAO[Movie]):
         return stmt.all()
 
 
-class UsersDAO(BaseDAO[User]):
-    __model__ = User
+

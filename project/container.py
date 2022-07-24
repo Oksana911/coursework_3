@@ -1,5 +1,6 @@
+from project.dao import UsersDAO
 from project.dao.auth_dao import AuthDAO
-from project.dao.main_dao import GenresDAO, DirectorsDAO, MoviesDAO, UsersDAO
+from project.dao.main_dao import GenresDAO, DirectorsDAO, MoviesDAO
 
 from project.services.users_service import UsersService
 from project.services.genres_service import GenresService

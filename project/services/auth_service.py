@@ -75,3 +75,8 @@ class AuthService(BaseService[AuthDAO]):
             raise abort(404)
 
         return self.__generate_tokens(user)
+
+    @staticmethod
+    def get_data_from_token(refresh_token):
+        data = jwt.decode(jwt=refresh_token, key=current_app.config['JWT_SECRET'], algorithms=current_app.config['JWT_ALGORITHM'])
+        return data

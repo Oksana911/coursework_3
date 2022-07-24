@@ -75,6 +75,7 @@ class AuthUserSchema(Schema):
     password_hash = fields.Str(required=True)
 
 
+
 class AuthRegisterRequest(Schema):  # TODO добавить проверку почты и пароля через @validator
     email = fields.Str(required=True)
     password = fields.Str(required=True)
