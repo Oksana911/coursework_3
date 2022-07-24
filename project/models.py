@@ -28,6 +28,7 @@ class Movie(models.Base):
     director_id = Column(Integer, ForeignKey(f'{Director.__tablename__}.id'))
     director = relationship('Director')
 
+
 class User(models.Base):
     __tablename__ = 'users'
 
@@ -68,11 +69,12 @@ class UserSchema(Schema):
     favorite_genre = fields.Int()
 
 
-class UserCreatedSchema(Schema):
+class AuthUserSchema(Schema):
+    id = fields.Int()
     email = fields.Str(required=True)
     password_hash = fields.Str(required=True)
 
 
-class AuthRegisterRequest(Schema):   #TODO добавить проверку почты и пароля через @validator
+class AuthRegisterRequest(Schema):  # TODO добавить проверку почты и пароля через @validator
     email = fields.Str(required=True)
-    password_hash = fields.Str(required=True)
+    password = fields.Str(required=True)

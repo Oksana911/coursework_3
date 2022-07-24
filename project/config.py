@@ -1,4 +1,3 @@
-import base64
 import os
 from pathlib import Path
 from typing import Type
@@ -8,7 +7,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 class BaseConfig:
     SECRET_KEY = os.getenv('SECRET_KEY', 'you-will-never-guess')
+
     JSON_AS_ASCII = False
+    RESTX_JSON = {
+        'ensure_ascii': False,
+    }
 
     ITEMS_PER_PAGE = 12
 
@@ -17,14 +20,14 @@ class BaseConfig:
     TOKEN_EXPIRE_MINUTES = 15
     TOKEN_EXPIRE_DAYS = 130
 
-    # PWD_HASH_SALT = base64.b64decode("salt")
     HASH_NAME = 'sha256'
     PWD_HASH_SALT = "salt"
     PWD_HASH_ITERATIONS = 100_000
 
-    RESTX_JSON = {
-        'ensure_ascii': False,
-    }
+    JWT_SECRET = ' 249y823r9v8238r9u'
+    JWT_ALGORITHM = 'HS256'
+
+
 
 
 class TestingConfig(BaseConfig):
