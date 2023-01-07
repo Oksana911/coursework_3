@@ -1,17 +1,16 @@
 from typing import Optional
-
 from project.dao.base import BaseDAO
-from project.models import User, AuthUserSchema
+from project.models import User
 
 
 class UsersDAO(BaseDAO[User]):
     __model__ = User
 
-    def get_by_email(self, email: str) -> Optional[AuthUserSchema]:
+    def get_user_by_email(self, email: str) -> Optional[User]:
         user = self._db_session.query(User).filter(User.email == email).one()
 
         if user is not None:
-            return AuthUserSchema().dump(user)
+            return user
         return None
 
     def update(self, email, data):
