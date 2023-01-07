@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, render_template
 from flask_cors import CORS
-
 from project.exceptions import BaseServiceError
 from project.setup.api import api
 from project.setup.db import db
@@ -24,7 +23,7 @@ def create_app(config_obj):
     db.init_app(app)
     api.init_app(app)
 
-    # Регистрация эндпоинтов
+    # Регистрация эндпоинтов:
     api.add_namespace(auth_ns)
     api.add_namespace(user_ns)
     api.add_namespace(genres_ns)

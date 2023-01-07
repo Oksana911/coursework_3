@@ -1,5 +1,4 @@
 from typing import Dict
-
 from flask import request
 from flask_restx import Resource, Namespace
 from project.container import auth_service
@@ -25,7 +24,7 @@ class RegisterView(Resource):
             email=validated_data['email'],
             password=validated_data['password'],
         )
-        return '', 200
+        return 'Пользователь успешно зарегистрирован', 200
 
 
 @api.route('/login/')
@@ -52,10 +51,10 @@ class LoginView(Resource):
         Create and return new tokens
         """
         data = request.json
-        refresh_token = data.get("refresh_token")
+        refresh_token = data.get('refresh_token')
         if not refresh_token:
             return 'Не задан токен', 400
 
-        tokens = auth_service.approve_refresh_token(refresh_token)
+        new_tokens = auth_service.approve_refresh_token(refresh_token)
 
-        return tokens, 201
+        return new_tokens, 201

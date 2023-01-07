@@ -1,6 +1,5 @@
 from flask import request
 from flask_restx import Namespace, Resource
-
 from project.container import user_service
 from project.setup.api.models import user
 
@@ -21,7 +20,7 @@ class UserView(Resource):
         data = request.json
         token = request.headers.environ.get('HTTP_AUTHORIZATION').replace('Bearer ', '')
 
-        return user_service.update_user(data=data, refresh_token=token), 201
+        return user_service.update(data=data, refresh_token=token), 201
 
 
 @api.route('/password')
