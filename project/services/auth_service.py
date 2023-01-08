@@ -16,10 +16,6 @@ class AuthService(BaseService[AuthDAO]):
         return generate_password_hash(password=password)
 
     @staticmethod
-    def compare_passwords(password1: str, password2: str) -> bool:
-        return hmac.compare_digest(password1, password2)
-
-    @staticmethod
     def __generate_tokens(user_data: Dict) -> Dict:
         if user_data is None:
             raise abort(404)

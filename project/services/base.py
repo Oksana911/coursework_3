@@ -1,3 +1,4 @@
+import hmac
 from typing import Generic, TypeVar, Dict
 import jwt
 from flask import current_app
@@ -26,3 +27,7 @@ class BaseService(Generic[T]):
             abort(401)
 
         return user_data
+
+    @staticmethod
+    def compare_passwords(password_1: str, password_2: str) -> bool:
+        return hmac.compare_digest(password_1, password_2)

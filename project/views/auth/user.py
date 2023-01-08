@@ -14,7 +14,7 @@ class UserView(Resource):
         token = request.headers.environ.get('HTTP_AUTHORIZATION').replace('Bearer ', '')
         return user_service.get_by_token(refresh_token=token)
 
-    @api.marshal_with(user, code=200, description='OK')
+    @api.marshal_with(user, code=201, description='OK')
     def patch(self):
         """ Update user info """
         data = request.json
@@ -27,4 +27,7 @@ class UserView(Resource):
 class UserPasswordView(Resource):
     def put(self):
         """ Update user password """
-        pass
+        data = request.json
+        token = request.headers.environ.get('HTTP_AUTHORIZATION').replace('Bearer ', '')
+
+        return user_service.password_update(data=data, refresh_token=token), 201

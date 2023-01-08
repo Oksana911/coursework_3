@@ -16,4 +16,9 @@ class UsersDAO(BaseDAO[User]):
     def update(self, email, data):
         self._db_session.query(User).filter(User.email == email).update(data)
         self._db_session.commit()
-        print('Пользователь обновлен')
+
+    def update_password(self, email, data):
+        user = self.get_user_by_email(email)
+        user.password_hash = data
+        self._db_session.add(user)
+        self._db_session.commit()
